@@ -48,17 +48,54 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     Map markers = {};
     LatLng _lastMapPosition = _center;
-    List<LatLng> latlng = List();
-    List listMarkerIds = List();
+    List<LatLng> latlng = [
+      LatLng(-6.2310296, 106.8527276),
+      LatLng(-6.232115, 106.852908),
+      LatLng(-6.233833, 106.853099),
+      LatLng(-6.234995, 106.853346),
+      LatLng(-6.235785, 106.853517),
+      LatLng(-6.236920, 106.853564),
+      LatLng(-6.237341, 106.853521),
+      LatLng(-6.237890, 106.853414),
+      LatLng(-6.238611, 106.853173),
+      LatLng(-6.238370, 106.852608),
+      LatLng(-6.238287, 106.852301),
+      LatLng(-6.238381, 106.852047),
+      LatLng(-6.238283, 106.851300),
+      LatLng(-6.238263, 106.851268),
+      LatLng(-6.238311, 106.850855),
+      LatLng(-6.238401, 106.850522),     
+      LatLng(-6.238583, 106.849760),
+      LatLng(-6.238434, 106.849727),   
+    ];
 
     LatLng pinPosition = LatLng(-6.2310296, 106.8527276); //rumah lia
-    LatLng pinPositions = LatLng(-6.2384239, 106.847541); // circle K
 
-    latlng.add(pinPosition);
-    latlng.add(pinPositions);
+    //latlng.add(pinPosition);
 
     CameraPosition initialLocation =
-        CameraPosition(zoom: 11, bearing: 30, target: pinPosition);
+        CameraPosition(zoom: 20, bearing: 30, target: pinPosition);
+
+    Marker marker1 = Marker(
+      markerId: MarkerId('circleK1'),
+      position: LatLng(-6.228608, 106.856736),
+      infoWindow: InfoWindow(title: 'Circle K'),
+      icon: pinLocationIcon,
+    );
+
+    Marker marker2 = Marker(
+      markerId: MarkerId('Circle_K_Tebet_barat'),
+      position: LatLng(-6.238434, 106.849727),
+      infoWindow: InfoWindow(title: 'Circle K tebet Barat'),
+      icon: pinLocationIcon,
+    );
+
+    Marker liamarker = Marker(
+      markerId: MarkerId('Rumah_Lia'),
+      position: LatLng(-6.2310296, 106.8527276),
+      infoWindow: InfoWindow(title: 'Rumah Lia'),
+      icon: pinLocationIcon,
+    );
 
     return MaterialApp(
       home: Scaffold(
@@ -70,7 +107,7 @@ class _MyAppState extends State<MyApp> {
           //onMapCreated: _onMapCreated,
           myLocationEnabled: true,
           compassEnabled: true,
-          markers: _markers,
+          markers: {marker1, marker2, liamarker},
           polylines: _polyline,
           initialCameraPosition: initialLocation,
           //markers: Set.of(markers.values),
@@ -104,13 +141,14 @@ class _MyAppState extends State<MyApp> {
               //markers[markerId2]=marker2;
               _markers.add(Marker(
                   markerId: MarkerId(_lastMapPosition.toString()),
-                  //visible: true,
+                  visible: true,
                   position: _lastMapPosition,
                   icon: pinLocationIcon,
                   infoWindow: InfoWindow(
                     title: 'Locattion',
                     snippet: '5 Star Rating',
                   )));
+
               _polyline.add(Polyline(
                 polylineId: PolylineId(_lastMapPosition.toString()),
                 visible: true,
